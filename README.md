@@ -1,8 +1,8 @@
-# drake-website
+# Drake Website
 
 ## A website for Drake High School made by DHS Developers Club
 
-## How to use:
+### How to use:
 - Fork this repo
 - Clone your fork to your computer
 - Make the changes you want

@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body {
+  overflow: hidden;
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  font-weight: lighter;
+}
+
+p{
+  font-size: 1.25em;
+}
+
+a, a:active {
+  text-decoration: none;
+  color: ;
+}
+
+#main {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  margin-top: calc(50vh - 100px);
+}

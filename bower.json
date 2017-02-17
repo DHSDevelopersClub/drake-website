@@ -1,0 +1,20 @@
+{
+  "name": "drake-website",
+  "description": "A website for DHS Dev",
+  "main": "script.js",
+  "authors": [
+    "Duncan Grubbs <duncan.grubbs@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/DHSDevelopersClub/drake-website",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer#^1.8.0"
+  }
+}

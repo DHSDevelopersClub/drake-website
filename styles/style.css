@@ -3,3 +3,17 @@ html, body {
   padding: 0;
   font-family: 'Roboto', sans-serif;
 }
+
+#nav-bar {
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  height: 8vh;
+  background: #00641d;
+  color: #FFF;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.item {
+  padding-left: 16px;
+}

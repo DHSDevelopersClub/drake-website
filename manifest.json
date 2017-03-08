@@ -7,7 +7,7 @@
   "background_color": "#3f51b5",
   "icons": [
     {
-      "src": "images/manifest/icon-92x92.png",
+      "src": "res/icons/icon-96x96.png",
       "sizes": "96x96",
       "type": "image/png"
     },

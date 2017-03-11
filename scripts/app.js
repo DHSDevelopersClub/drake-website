@@ -8,12 +8,12 @@
 //   });
 // };
 
-fetch('../views/home.html', { method: 'GET' })
-.then(resp => {
-  resp.blob().then(data => {
-    console.log(data);
-  });
-})
-.catch(err => {
-  console.warn('Fetch error: ', err);
-});
+// fetch('../views/home.html', { method: 'GET' })
+// .then(resp => {
+//   resp.blob().then(data => {
+//     console.log(data);
+//   });
+// })
+// .catch(err => {
+//   console.warn('Fetch error: ', err);
+// });

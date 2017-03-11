@@ -1,8 +1,26 @@
-html, body {
+:root {
+  --app-primary-color: #15e8a4;
+}
+
+html {
+  background: #f6fbff;
+}
+
+body {
   margin: 0;
   padding: 0;
+  width: 100vw;
   font-family: 'Roboto', sans-serif;
   overflow-x: hidden;
+  background-image: url('/res/background.svg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: #FFF;
+}
+
+.svg {
+  width: 100vw;
+  z-index: -999;
 }
 
 a {
@@ -18,12 +36,12 @@ a {
   margin-left: auto;
   margin-right: auto;
   height: 8vh;
+  background: var(--app-primary-color);
 }
 
 .navbar-component {
-  background: #00641d;
   color: #FFF;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  /*box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
 }
 
 .navbar-component > .navbar {
@@ -34,7 +52,7 @@ a {
   display: block;
   color: #FFF;
   margin: 16px;
-  font-size: 1.3em;
+  font-size: 2em;
 }
 
 .list {
@@ -55,23 +73,106 @@ a {
 
 #content {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   max-width: 100vw;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 100vw;
+}
+
+.counter {
+  justify-content: flex-end;
+}
+
+.teacher-list {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
 }
 
 .card {
   display: flex;
   max-width: 300px;
   background: #fff;
+  color: #000;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   padding: 16px;
   margin: 8px;
   border-radius: 3px;
 }
 
+.max {
+  margin-right: 32px;
+  flex-direction: column;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.title {
+  font-size: 2em;
+}
+
+#teacher-title {
+  color: #3fbd8f;
+}
+
+#search {
+  width: 30vw;
+  height: 2vh;
+  border-radius: 30px;
+  padding: 16px;
+  font-size: 1.2em;
+  border: none;
+  min-width: 230px;
+  margin: 8px;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+.class {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 30vw;
+  min-width: 240px;
+  background: #fff;
+  margin: 8px 0 8px 0;
+  color: #000;
+  border-radius: 3px;
+  padding: 8px;
+}
+
+.star {
+  flex-grow: 1;
+}
+
+.class-name {
+  flex-grow: 5;
+}
+
+.teacher-name {
+  flex-grow: 2;
+}
+
 /* MOBILE RULES */
 @media screen and (max-width: 610px) {
   .list {
     display: none;
+  }
+
+  .max {
+    margin-right: 8px;
+    width: 80vw;
+  }
+
+  .counter {
+    justify-content: center;
   }
 }

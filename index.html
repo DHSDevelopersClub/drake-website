@@ -61,8 +61,6 @@
   </head>
 
   <body>
-   <!--<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" viewBox="0 0 640 640" class="svg"><defs><path d="M92.21 -387.95L805.41 -140.16L640 335.92L-73.2 88.13L92.21 -387.95Z" id="a18tpwPXf3"></path></defs><g visibility="inherit"><g visibility="inherit"><g visibility="inherit"><use xlink:href="#a18tpwPXf3" opacity="1" fill="#15e8a4" fill-opacity="1"></use></g></g></g></svg>-->
-   <!-- Component -->
     <div class="navbar-component">
       <div class="navbar area">
         <span class="brand">Drake</span>
@@ -80,30 +78,57 @@
       <div class="row counter">
         <div class="card max">
           <span class="title">Schedule</span>
-          <iframe src="http://maxstarr.xyz" frameborder="0"></iframe>
+          <iframe id="schedule" src="http://maxstarr.xyz" frameborder="0"></iframe>
         </div>
       </div>
     
       <div class="row teacher-list">
         <span class="title teacher-title">Teacher Webpages</span>
-        <input id="search"></input>
+        <div id="search-area">
+          <img src="/res/search.svg" alt=">" id="search-icon">
+          <input id="search"></input>
+        </div>
         <div id="class-list">
           <div class="class">
-            <img src="#" alt="Star" class="star">
+            <img src="/res/star-gold.svg" alt="Star" class="star">
+            <div class="class-name">Calculus AB</div>
+            <div class="teacher-name">Ms. Martz</div>
+          </div>
+
+          <div class="class">
+            <img src="/res/star-gold.svg" alt="Star" class="star">
             <div class="class-name">English</div>
             <div class="teacher-name">Ms. Kitchens</div>
           </div>
 
           <div class="class">
-            <img src="#" alt="Star" class="star">
-            <div class="class-name">English</div>
-            <div class="teacher-name">Ms. Kitchens</div>
+            <img src="/res/star-gold.svg" alt="Star" class="star">
+            <div class="class-name">Chemisty</div>
+            <div class="teacher-name">Ms. Buchannan</div>
           </div>
 
           <div class="class">
-            <img src="#" alt="Star" class="star">
-            <div class="class-name">English</div>
-            <div class="teacher-name">Ms. Kitchens</div>
+            <img src="/res/star-empty.svg" alt="Star" class="star">
+            <div class="class-name">AP Spanish</div>
+            <div class="teacher-name">Mr. Castro</div>
+          </div>
+
+          <div class="class">
+            <img src="/res/star-empty.svg" alt="Star" class="star">
+            <div class="class-name">Jazz Band</div>
+            <div class="teacher-name">Mr. Boaz</div>
+          </div>
+
+          <div class="class">
+            <img src="/res/star-empty.svg" alt="Star" class="star">
+            <div class="class-name">Economics</div>
+            <div class="teacher-name">Mr. Beale</div>
+          </div>
+
+          <div class="class">
+            <img src="/res/star-empty.svg" alt="Star" class="star">
+            <div class="class-name">History</div>
+            <div class="teacher-name">Ms. Norstad</div>
           </div>
           
         </div>

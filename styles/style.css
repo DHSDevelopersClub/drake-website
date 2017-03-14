@@ -57,7 +57,7 @@ a {
 }
 
 #gradient {
-  background: linear-gradient(150deg, #1ee9b1 50%,#03e781 94%);
+  background: linear-gradient(-8deg, #00E676 0%, #1DE9B6 65%);
   position: absolute;
   width: 100%;
   height: 760px;

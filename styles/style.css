@@ -2,14 +2,12 @@
   --app-primary-color: #00ebaa;
 }
 
-html {
-  background: #1DE9B6;
-}
 
 body {
   margin: 0;
   padding: 0;
   min-width: 100vw;
+  min-height: 100vh;
   font-family: 'Roboto', sans-serif;
   overflow-x: hidden;
   color: #FFF;
@@ -66,7 +64,8 @@ a {
   background: linear-gradient(-8deg, #00E676 0%, #1DE9B6 65%);
   position: absolute;
   width: 100%;
-  height: 50vh;
+  height: 30vw;
+  min-height: 50vh;
   transform-origin: right;
   transform: skewY(8deg);
   overflow: hidden;
@@ -185,7 +184,7 @@ th, td {
 
 .star {
   display: block;
-  margin: 0 auto;
+  margin-left: 8px;
   width: 3vh;
   height: 3vh;
   min-width: 15px;
@@ -203,7 +202,9 @@ span {
   border-radius: 15px;
   overflow: hidden;
   padding: 10px;
-  width: 80%;
+  width: 75%;
+  margin-top: 16px;
+  margin-bottom: 32px;
 }
 
 .class-name {
@@ -230,6 +231,6 @@ span {
   }
 
   .class, #search-area {
-    min-width: 90vw;
+    min-width: 80vw;
   }
 }

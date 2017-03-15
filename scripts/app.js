@@ -17,7 +17,7 @@ let wordSearch = '';
 function writeToList(i, data) {
   let classRow = document.createElement('tr');
   teacherCache.setItem(i, 'star-empty.svg');
-  let first = `<img src="/res/${teacherCache.getItem(i)}" alt="Star" class="star">`;
+  let first = `<span><img src="/res/${teacherCache.getItem(i)}" alt="Star" class="star"></span>`;
   classRow.className = 'class';
   classRow.setAttribute('id', i);
   classRow.innerHTML = `${first}<td class="class-name">${data[i].class}</td><td class="teacher-name">${data[i].name}</td>`;

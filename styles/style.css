@@ -176,11 +176,17 @@ th, td {
 }
 
 .star {
-  flex-grow: 1;
+  display: block;
+  margin: 0 auto;
   width: 3vh;
   height: 3vh;
   min-width: 15px;
   min-height: 15px;
+}
+
+span {
+  display: table-cell;
+  vertical-align: middle;
 }
 
 #class-list {

@@ -15,13 +15,13 @@ const search = document.getElementById('search');
 let wordSearch = '';
 
 function writeToList(i, data) {
-  let classDiv = document.createElement('div');
+  let classRow = document.createElement('tr');
   teacherCache.setItem(i, 'star-empty.svg');
   let first = `<img src="/res/${teacherCache.getItem(i)}" alt="Star" class="star">`;
-  classDiv.className = 'class';
-  classDiv.setAttribute('id', i);
-  classDiv.innerHTML = `${first}<div class="class-name">${data[i].class}</div><div class="teacher-name">${data[i].name}</div>`;
-  classList.appendChild(classDiv);
+  classRow.className = 'class';
+  classRow.setAttribute('id', i);
+  classRow.innerHTML = `${first}<td class="class-name">${data[i].class}</td><td class="teacher-name">${data[i].name}</td>`;
+  classList.appendChild(classRow);
 }
 
 function updateList(word) {
@@ -51,7 +51,7 @@ function updateList(word) {
 
 search.addEventListener('keyup', evt => {
   let keycode = evt.keyCode;
-  let valid = 
+  let valid =
         (keycode > 47 && keycode < 58)   || // number keys
         (keycode == 32)                  || // spacebar & return key(s) (if you want to allow carriage returns)
         (keycode > 64 && keycode < 91)   || // letter keys

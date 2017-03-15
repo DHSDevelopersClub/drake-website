@@ -9,7 +9,7 @@ body {
   font-family: 'Roboto', sans-serif;
   overflow-x: hidden;
   color: #FFF;
-  background: #f4f9fd;
+  background: #F6FBFF;
 }
 
 a {
@@ -60,11 +60,12 @@ a {
   background: linear-gradient(-8deg, #00E676 0%, #1DE9B6 65%);
   position: absolute;
   width: 100%;
-  height: 760px;
+  height: 50vh;
+  transform-origin: right;
   transform: skewY(8deg);
   overflow: hidden;
   z-index: -9;
-  top: -54%;
+  top: 0;
 }
 
 /* CONTENT */
@@ -91,12 +92,12 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 16px;
+  margin-top: 10%;
 }
 
 .card {
   display: flex;
-  max-width: 300px;
+  max-width: 280px;
   background: #fff;
   color: #000;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -107,8 +108,9 @@ a {
 
 .max {
   margin-right: 32px;
+  margin-top: 14%;
   flex-direction: column;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  box-shadow: 10px 10px 22px 4px rgba(0,0,0,0.24);;
   min-height: 250px;
 }
 
@@ -121,7 +123,7 @@ a {
 }
 
 .teacher-title {
-  color: #000;
+  color: #24B47E;
 }
 
 #search-area {
@@ -135,7 +137,7 @@ a {
   font-size: 1em;
   border: none;
   min-width: 230px;
-  margin: 8px;
+  margin: 16px;
   background: #FFF;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
@@ -163,17 +165,14 @@ textarea:focus, input:focus{
 }
 
 .class {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 30vw;
-  min-width: 240px;
+  display: table-row;
   background: #fff;
-  margin: 8px 0 8px 0;
   color: #000;
-  border-radius: 3px;
-  padding: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+th, td {
+  padding: 10px;
 }
 
 .star {
@@ -182,6 +181,15 @@ textarea:focus, input:focus{
   height: 3vh;
   min-width: 15px;
   min-height: 15px;
+}
+
+#class-list {
+  background-color: white;
+  border-collapse: collapse;
+  border-radius: 15px;
+  overflow: hidden;
+  padding: 10px;
+  width: 80%;
 }
 
 .class-name {

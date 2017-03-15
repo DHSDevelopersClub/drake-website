@@ -131,13 +131,13 @@ a {
   flex-direction: row;
   align-items: center;
   width: 30vw;
+  min-width: 450px;
   height: 2vh;
   border-radius: 30px;
   padding: 16px;
   font-size: 1em;
   border: none;
-  min-width: 230px;
-  margin: 16px;
+  margin: 8px;
   background: #FFF;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
@@ -151,7 +151,7 @@ a {
 }
 
 #search {
-  max-width: 25vw;
+  min-width: 25vw;
   flex-grow: 5;
   height: 2vh;
   padding: 16px;
@@ -213,5 +213,9 @@ th, td {
 
   .counter {
     justify-content: center;
+  }
+
+  .class, #search-area {
+    min-width: 90vw;
   }
 }

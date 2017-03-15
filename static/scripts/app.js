@@ -16,10 +16,18 @@ add listeners
 */
 
 // VARS
-const teacherCache = localStorage;
 const pinned = document.getElementById('pinned');
 const classList = document.getElementById('class-list');
 const search = document.getElementById('search');
+const tables = document.querySelectorAll('table');
+
+let unStarred;
+if (tables.length = 1) {
+  unStarred = tables[1];
+} else {
+  unStarred = tables[0];
+}
+
 let wordSearch = '';
 
 // GET DATA
@@ -31,7 +39,6 @@ fetch('teacher-pages.json')
   .then(data => {
     outerData = data;
     updateList(data);
-    writePinned(data);
     addEventListeners();
   })
 });
@@ -63,18 +70,34 @@ function updateList(data, word) {
       writeToList(i, data);
     }
   }
+  addEventListeners();
 }
 
-function writePinned(data) {
-  if (teacherCache.length != 0) {
-    for (let i = 0; i < teacherCache.length; i++) {
-      let classRow = document.createElement('tr');
-      let first = `<span><img src="/res/star-gold.svg" alt="Star" class="star" id="${i}"></span>`;
-      classRow.className = 'class';
-      classRow.innerHTML = `${first}<td class="class-name">${data[i].class}</td><td class="teacher-name">${data[i].name}</td>`;
-      pinned.appendChild(classRow);
-    }
+// function writePinned(data) {
+//   if (teacherCache.length != 0) {
+//     for (let i = 0; i < teacherCache.length; i++) {
+//       let classRow = document.createElement('tr');
+//       let first = `<span><img src="/res/star-gold.svg" alt="Star" class="star" id="${i}"></span>`;
+//       classRow.className = 'class';
+//       let index = teacherCache.getItem(i);
+//       console.log(index);
+//       classRow.innerHTML = `${first}<td class="class-name">${data[i].class}</td><td class="teacher-name">${data[i].name}</td>`;
+//       pinned.appendChild(classRow);
+//     }
+//   }
+// }
+
+function removeFromList(list, element) {
+  element.remove();
+}
+
+function addToList(list, element) {
+  if (list.id === 'class-list') {
+    list = tables[0];
+  } else {
+    list = tables[1];
   }
+  list.appendChild(element);
 }
 
 function updatePinned(id, data) {
@@ -90,11 +113,15 @@ function addEventListeners() {
 
   for (let i = 0; i < stars.length; i++) {
     stars[i].addEventListener('click', evt => {
-      let id = evt.path[0].id;
-      evt.path[0].classList.add('pinned');
-      console.log(evt.path[0].classList);
-      teacherCache.setItem(id, id);
-      updatePinned(id, outerData);
+      let clickedRow = evt.path[2];
+      let list = evt.path[3];
+      removeFromList(list, clickedRow);
+      addToList(list, clickedRow);
+      if (list.id === 'pinned') {
+        evt.path[0].src = '/res/star-empty.svg';
+      } else {
+        evt.path[0].src = '/res/star-gold.svg';
+      }
     });
   }
 }
@@ -110,11 +137,7 @@ search.addEventListener('keyup', evt => {
         (keycode > 218 && keycode < 223);
 
   if (valid || keycode === 8) {
-    if(keycode === 8) {
-      wordSearch = wordSearch.substring(0, wordSearch.length - 1);
-    } else {
-      wordSearch += evt.key;
-    }
+    wordSearch = search.value;
     updateList(outerData, wordSearch);
   }
 });

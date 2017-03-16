@@ -6,106 +6,47 @@
 //   });
 // };
 
-// STRUCTURE
-
-/*
-declare vars
-Get data
-write to screen all cards
-add listeners
-*/
-
 // VARS
-const pinned = document.getElementById('pinned');
 const classList = document.getElementById('class-list');
 const search = document.getElementById('search');
 const tables = document.querySelectorAll('table');
 
-let unStarred;
-if (tables.length = 1) {
-  unStarred = tables[1];
-} else {
-  unStarred = tables[0];
-}
+const pinned = tables[0];
+const unpinned = tables[1];
 
-let wordSearch = '';
-
-// GET DATA
-let outerData;
-
+// Initial Filling
 fetch('teacher-pages.json')
 .then(resp => {
   data = resp.json()
   .then(data => {
-    outerData = data;
-    updateList(data);
-    addEventListeners();
+    fillUnpinned(data);
   })
 });
 
-function writeToList(i, data) {
-  let classRow = document.createElement('tr');
-  let first = `<span><img src="/res/star-empty.svg" alt="Star" class="star" id="${i}"></span>`;
-  classRow.className = 'class';
-  // classRow.setAttribute('id', i);
-  classRow.innerHTML = `${first}<td class="class-name">${data[i].class}</td><td class="teacher-name">${data[i].name}</td>`;
-  classList.appendChild(classRow);
-}
-
-// Write ALL data to screen
-function updateList(data, word) {
-  if (word) {
-    classList.innerHTML = '';
-    for (let i = 0; i < data.length; i++) {
-      word = word.toLowerCase();
-      let className = data[i].class.toLowerCase();
-      let teacherName = data[i].name.toLowerCase();
-      if (className.includes(word) || teacherName.includes(word)) {
-        writeToList(i, data);
-      }
-    }
-  } else {
-    classList.innerHTML = '';
-    for (let i = 0; i < data.length; i++) {
-      writeToList(i, data);
-    }
+function fillUnpinned(data) {
+  for (let i = 0; i < data.length; i++) {
+    let classRow = document.createElement('tr');
+    let first = `<span><img src="/res/star-empty.svg" alt="Star" class="star"></span>`;
+    classRow.className = 'class';
+    classRow.id = i;
+    classRow.innerHTML = `${first}<td class="class-name">${data[i].class}</td><td class="teacher-name">${data[i].name}</td>`;
+    classList.appendChild(classRow);
   }
   addEventListeners();
 }
 
-// function writePinned(data) {
-//   if (teacherCache.length != 0) {
-//     for (let i = 0; i < teacherCache.length; i++) {
-//       let classRow = document.createElement('tr');
-//       let first = `<span><img src="/res/star-gold.svg" alt="Star" class="star" id="${i}"></span>`;
-//       classRow.className = 'class';
-//       let index = teacherCache.getItem(i);
-//       console.log(index);
-//       classRow.innerHTML = `${first}<td class="class-name">${data[i].class}</td><td class="teacher-name">${data[i].name}</td>`;
-//       pinned.appendChild(classRow);
-//     }
-//   }
-// }
-
+// Pinning Functionality
 function removeFromList(list, element) {
   element.remove();
 }
 
 function addToList(list, element) {
-  if (list.id === 'class-list') {
-    list = tables[0];
+  if (list === unpinned) {
+    list = pinned;
   } else {
-    list = tables[1];
+    list = unpinned;
   }
   list.appendChild(element);
-}
-
-function updatePinned(id, data) {
-  let classRow = document.createElement('tr');
-  let first = `<span><img src="/res/star-gold.svg" alt="Star" class="star" id="${id}"></span>`;
-  classRow.className = 'class';
-  classRow.innerHTML = `${first}<td class="class-name">${data[id].class}</td><td class="teacher-name">${data[id].name}</td>`;
-  pinned.appendChild(classRow);
 }
 
 function addEventListeners() {
@@ -126,6 +67,35 @@ function addEventListeners() {
   }
 }
 
+// Search Functionality
+function writeToList(i, row) {
+  let items = row.querySelectorAll('td');
+  let className = items[0];
+  let teacherName = items[1];
+
+  let classRow = document.createElement('tr');
+  let first = `<span><img src="/res/star-empty.svg" alt="Star" class="star" id="${i}"></span>`;
+  classRow.className = 'class';
+  classRow.innerHTML = `${first}<td class="class-name">${className}</td><td class="teacher-name">${teacherName}</td>`;
+  unpinned.appendChild(classRow);
+}
+
+function updateList(word) {
+  let rows = unpinned.querySelectorAll('tr');
+  for (let i = 0; i < rows.length; i++) {
+    let items = rows[i].querySelectorAll('td');
+    word = word.toLowerCase();
+    let className = items[0].textContent.toLowerCase();
+    let teacherName = items[1].textContent.toLowerCase();
+    if (className.includes(word) || teacherName.includes(word)) {
+      // writeToList(i, rows[i]);
+      rows[i].style.display = 'block';
+    } else {
+      rows[i].style.display = 'none';
+    }
+  }
+}
+
 search.addEventListener('keyup', evt => {
   let keycode = evt.keyCode;
   let valid =
@@ -138,6 +108,6 @@ search.addEventListener('keyup', evt => {
 
   if (valid || keycode === 8) {
     wordSearch = search.value;
-    updateList(outerData, wordSearch);
+    updateList(wordSearch);
   }
 });

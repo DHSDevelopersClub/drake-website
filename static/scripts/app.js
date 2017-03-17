@@ -1,10 +1,10 @@
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js').then(reg => {
-    console.log('[SW] Registered');
-  }).catch(function(error) {
-    console.log(`[SW] Registration failed: ${error}`);
-  });
-};
+// if ('serviceWorker' in navigator) {
+//   navigator.serviceWorker.register('./sw.js').then(reg => {
+//     console.log('[SW] Registered');
+//   }).catch(function(error) {
+//     console.log(`[SW] Registration failed: ${error}`);
+//   });
+// };
 
 // VARS
 const classList = document.getElementById('class-list');
@@ -135,7 +135,6 @@ search.addEventListener('keyup', evt => {
 
 
 // ROUTER 
-
 const links = document.querySelectorAll('.item');
 const gradient = document.querySelector('#gradient');
 
@@ -163,6 +162,14 @@ links[0].removeEventListener('click', evt =>{});
 home.addEventListener('click', evt => {
     // gradient.style.transform = 'skew(8deg)';
     gradient.style.top = '0';
+});
+
+// GRADES
+
+const gradesLink = document.getElementById('grades-button');
+
+gradesLink.addEventListener('click', evt => {
+  window.open('https://home.tamdistrict.org/HomeAccess/Account/LogOn?ReturnUrl=%2fHomeAccess%2f', '_blank');
 });
 
 

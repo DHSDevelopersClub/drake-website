@@ -1,18 +1,39 @@
-// if ('serviceWorker' in navigator) {
-//   navigator.serviceWorker.register('./sw.js').then(reg => {
-//     console.log('[SW] Registered');
-//   }).catch(function(error) {
-//     console.log(`[SW] Registration failed: ${error}`);
-//   });
-// };
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').then(reg => {
+    console.log('[SW] Registered');
+  }).catch(function(error) {
+    console.log(`[SW] Registration failed: ${error}`);
+  });
+};
 
 // VARS
 const classList = document.getElementById('class-list');
 const search = document.getElementById('search');
 const tables = document.querySelectorAll('table');
+const content = document.getElementById('content');
 
 const pinned = tables[0];
 const unpinned = tables[1];
+
+var request = indexedDB.open('teacherCache', 1);
+
+request.onerror = err => {
+  console.error(err);
+}
+
+request.onsuccess = evt => {
+  console.log('Created database');
+  db = evt.target.result;
+}
+
+request.onupgradeneeded = function (event) {
+
+  var db = event.target.result;
+
+  if (!db.objectStoreNames.contains('teachers')) {
+    var os = db.createObjectStore('teachers', {keyPath: 'id', autoIncrement: true});
+  }
+};
 
 // Initial Filling
 fetch('teacher-pages.json')
@@ -111,3 +132,37 @@ search.addEventListener('keyup', evt => {
     updateList(wordSearch);
   }
 });
+
+
+// ROUTER 
+
+const links = document.querySelectorAll('.item');
+const gradient = document.querySelector('#gradient');
+
+gradient.style.transition = 'all ease-in-out .3s';
+
+const home = links[0];
+
+for (let i = 0; i < links.length; i++) {
+  links[i].addEventListener('click', evt => {
+    // gradient.style.transform = 'skew(4deg)';
+    gradient.style.top = '-200px';
+    let uri = evt.path[0].id;
+    fetch(uri)
+    .then(resp => {
+      resp.text()
+      .then(data => {
+        content.innerHTML = data;
+      })    
+    })
+  });
+}
+
+links[0].removeEventListener('click', evt =>{});
+
+home.addEventListener('click', evt => {
+    // gradient.style.transform = 'skew(8deg)';
+    gradient.style.top = '0';
+});
+
+

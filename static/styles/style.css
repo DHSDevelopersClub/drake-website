@@ -16,6 +16,10 @@ body {
 a {
   text-decoration: none;
   transition: all 0.3s linear 0s;
+  cursor: pointer;
+}
+a:hover {
+  color: grey;
 }
 
 /* NAV BAR */
@@ -82,6 +86,7 @@ a {
   flex-wrap: wrap;
   max-width: 100vw;
   color: #24B47E;
+  transition: all ease-in-out.3s;
 }
 
 .row {
@@ -178,6 +183,7 @@ textarea:focus, input:focus{
   vertical-align: middle;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
+
 th, td {
   padding: 10px;
 }
@@ -230,7 +236,11 @@ span {
     justify-content: center;
   }
 
-  .class, #search-area {
+  #search-area {
     min-width: 80vw;
+  }
+
+  #class-list, #pinned {
+    min-width: 90vw;
   }
 }

@@ -135,7 +135,7 @@ search.addEventListener('keyup', evt => {
 
 
 // ROUTER 
-const links = document.querySelectorAll('.item');
+const links = document.querySelectorAll('a');
 const gradient = document.querySelector('#gradient');
 
 gradient.style.transition = 'all ease-in-out .3s';
@@ -144,9 +144,10 @@ const home = links[0];
 
 for (let i = 0; i < links.length; i++) {
   links[i].addEventListener('click', evt => {
+    evt.preventDefault();
     // gradient.style.transform = 'skew(4deg)';
     gradient.style.top = '-200px';
-    let uri = evt.path[0].id;
+    let uri = evt.target.href;
     fetch(uri)
     .then(resp => {
       resp.text()

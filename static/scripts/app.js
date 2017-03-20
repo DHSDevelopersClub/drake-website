@@ -14,6 +14,7 @@ const content = document.getElementById('content');
 
 const pinned = tables[0];
 const unpinned = tables[1];
+var teacherJSON;
 
 var request = indexedDB.open('teacherCache', 1);
 
@@ -40,17 +41,18 @@ fetch('teacher-pages.json')
 .then(resp => {
   data = resp.json()
   .then(data => {
-    fillUnpinned(data);
+    teacherJSON = data;
+    fillUnpinned();
   })
 });
 
-function fillUnpinned(data) {
-  for (let i = 0; i < data.length; i++) {
+function fillUnpinned() {
+  for (let i = 0; i < teacherJSON.length; i++) {
     let classRow = document.createElement('tr');
     let first = `<span><img src="/res/star-empty.svg" alt="Star" class="star"></span>`;
     classRow.className = 'class';
     classRow.id = i;
-    classRow.innerHTML = `${first}<td class="class-name">${data[i].class}</td><td class="teacher-name">${data[i].name}</td>`;
+    classRow.innerHTML = `${first}<td class="class-name">${teacherJSON[i].class}</td><td class="teacher-name">${teacherJSON[i].name}</td>`;
     classRow.onclick = teacherListHandeler;
     classList.appendChild(classRow);
   }
@@ -126,44 +128,38 @@ function teacherListHandeler(e) {
   console.log(e);
   transformHeader();
   classID = e.path[1].id
-  console.log(classID);
+  classData = teacherJSON[parseInt(classID)]
+  url = classData.url;
+  // Change later
+  navInternal('contact.html')
+}
+
+function navInternal(url) {
+  window.history.pushState(null, null, url);
+
+  fetch(url)
+  .then(resp => {
+    console.log(resp);
+    data = resp.blob()
+    .then(data => {
+      swapContent(data);
+    })
+  });
+}
+
+function swapContent(htmlData) {
+  console.log(htmlData);
+  content.innerHTML = htmlData;
 }
 
 function transformHeader() {
+  const gradient = document.querySelector('#gradient');
   gradient.style.transition = 'all ease-in-out .5s';
   gradient.style.top = '-200px';
   gradient.style.transform = 'skewY(4deg)';
   gradient.style.background = 'linear-gradient(-8deg, #00E676 0%, #1DE9B6 32%)';
 }
 
-const links = document.querySelectorAll('a');
-const gradient = document.querySelector('#gradient');
-
-
-const home = links[0];
-
-for (let i = 0; i < links.length; i++) {
-  links[i].addEventListener('click', evt => {
-    evt.preventDefault();
-    // gradient.style.transform = 'skew(4deg)';
-    gradient.style.top = '-200px';
-    let uri = evt.target.href;
-    fetch(uri)
-    .then(resp => {
-      resp.text()
-      .then(data => {
-        content.innerHTML = data;
-      })
-    })
-  });
-}
-
-links[0].removeEventListener('click', evt =>{});
-
-home.addEventListener('click', evt => {
-    // gradient.style.transform = 'skew(8deg)';
-    gradient.style.top = '0';
-});
 
 // GRADES
 

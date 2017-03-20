@@ -51,6 +51,7 @@ function fillUnpinned(data) {
     classRow.className = 'class';
     classRow.id = i;
     classRow.innerHTML = `${first}<td class="class-name">${data[i].class}</td><td class="teacher-name">${data[i].name}</td>`;
+    classRow.onclick = teacherListHandeler;
     classList.appendChild(classRow);
   }
   addEventListeners();
@@ -88,19 +89,6 @@ function addEventListeners() {
   }
 }
 
-// Search Functionality
-function writeToList(i, row) {
-  let items = row.querySelectorAll('td');
-  let className = items[0];
-  let teacherName = items[1];
-
-  let classRow = document.createElement('tr');
-  let first = `<span><img src="/res/star-empty.svg" alt="Star" class="star" id="${i}"></span>`;
-  classRow.className = 'class';
-  classRow.innerHTML = `${first}<td class="class-name">${className}</td><td class="teacher-name">${teacherName}</td>`;
-  unpinned.appendChild(classRow);
-}
-
 function updateList(word) {
   let rows = unpinned.querySelectorAll('tr');
   for (let i = 0; i < rows.length; i++) {
@@ -109,8 +97,7 @@ function updateList(word) {
     let className = items[0].textContent.toLowerCase();
     let teacherName = items[1].textContent.toLowerCase();
     if (className.includes(word) || teacherName.includes(word)) {
-      // writeToList(i, rows[i]);
-      rows[i].style.display = 'block';
+      rows[i].style.display = 'table-row';
     } else {
       rows[i].style.display = 'none';
     }
@@ -134,11 +121,24 @@ search.addEventListener('keyup', evt => {
 });
 
 
-// ROUTER 
+// ROUTER
+function teacherListHandeler(e) {
+  console.log(e);
+  transformHeader();
+  classID = e.path[1].id
+  console.log(classID);
+}
+
+function transformHeader() {
+  gradient.style.transition = 'all ease-in-out .5s';
+  gradient.style.top = '-200px';
+  gradient.style.transform = 'skewY(4deg)';
+  gradient.style.background = 'linear-gradient(-8deg, #00E676 0%, #1DE9B6 32%)';
+}
+
 const links = document.querySelectorAll('a');
 const gradient = document.querySelector('#gradient');
 
-gradient.style.transition = 'all ease-in-out .3s';
 
 const home = links[0];
 
@@ -153,7 +153,7 @@ for (let i = 0; i < links.length; i++) {
       resp.text()
       .then(data => {
         content.innerHTML = data;
-      })    
+      })
     })
   });
 }
@@ -172,5 +172,3 @@ const gradesLink = document.getElementById('grades-button');
 gradesLink.addEventListener('click', evt => {
   window.open('https://home.tamdistrict.org/HomeAccess/Account/LogOn?ReturnUrl=%2fHomeAccess%2f', '_blank');
 });
-
-

@@ -124,23 +124,36 @@ search.addEventListener('keyup', evt => {
 
 
 // ROUTER
-function teacherListHandeler(e) {
-  console.log(e);
-  transformHeader();
+const gradient = document.querySelector('#gradient');
+const items = document.querySelectorAll('.item');
+
+for (let item of items) {
+  item.addEventListener('click', evt => {
+    let url = evt.path[0].id;
+    if (url === '/views/home.html') {
+      expandHeader();
+    } else {
+      shrinkHeader();
+    }
+    navInternal(url);
+  });
+}
+
+function teacherListHandeler (e) {
+  shrinkHeader();
   classID = e.path[1].id
   classData = teacherJSON[parseInt(classID)]
   url = classData.url;
   // Change later
-  navInternal('contact.html')
+  navInternal('/views/contact.html');
 }
 
-function navInternal(url) {
+function navInternal (url) {
   window.history.pushState(null, null, url);
 
   fetch(url)
   .then(resp => {
-    console.log(resp);
-    data = resp.blob()
+    data = resp.text()
     .then(data => {
       swapContent(data);
     })
@@ -148,18 +161,22 @@ function navInternal(url) {
 }
 
 function swapContent(htmlData) {
-  console.log(htmlData);
   content.innerHTML = htmlData;
 }
 
-function transformHeader() {
-  const gradient = document.querySelector('#gradient');
+function shrinkHeader() {
   gradient.style.transition = 'all ease-in-out .5s';
   gradient.style.top = '-200px';
   gradient.style.transform = 'skewY(4deg)';
   gradient.style.background = 'linear-gradient(-8deg, #00E676 0%, #1DE9B6 32%)';
 }
 
+function expandHeader() {
+  gradient.style.transition = 'all ease-in-out .5s';
+  gradient.style.top = '0';
+  gradient.style.transform = 'skewY(8deg)';
+  gradient.style.background = 'linear-gradient(-8deg, #00E676 0%, #1DE9B6 65%)';
+}
 
 // GRADES
 

@@ -1,0 +1,264 @@
+:root {
+  --app-primary-color: #00E676;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  font-family: 'Roboto', sans-serif;
+  overflow-x: hidden;
+  color: #FFF;
+  background: #F6FBFF;
+}
+
+a {
+  text-decoration: none;
+  transition: all linear .1s;
+  cursor: pointer;
+}
+a:hover {
+  color: grey;
+}
+
+button {
+  width: 95%;
+  min-width: 150px;
+  height: 5vh;
+  color: white;
+  border-radius: 3px;
+  border: none;
+  font-size: 2.5vh;
+  margin: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  background: var(--app-primary-color);
+}
+
+/* NAV BAR */
+.area {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  height: 8vh;
+}
+
+.navbar-component {
+  color: #FFF;
+  position: relative;
+  z-index: 1;
+}
+
+.navbar-component > .navbar {
+  justify-content: space-between;
+}
+
+.brand {
+  display: block;
+  color: #FFF;
+  margin: 16px;
+  font-size: 2em;
+}
+
+.list {
+  display: flex;
+  font-size: 1.1em;
+}
+
+.item {
+  display: block;
+  flex-shrink: 0;
+  height: 100%;
+  line-height: 100%;
+  padding: 0 16px 0 16px;
+  color: #FFF;
+}
+
+#gradient {
+  background: linear-gradient(-8deg, #00E676 0%, #1DE9B6 65%);
+  position: absolute;
+  width: 100%;
+  height: 30vw;
+  min-height: 50vh;
+  transform-origin: right;
+  transform: skewY(8deg);
+  overflow: hidden;
+  z-index: 0;
+  top: 0;
+}
+
+/* CONTENT */
+
+#content {
+  display: flex;
+  position: relative;
+  z-index: 1;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-width: 100vw;
+  color: #24B47E;
+  transition: all ease-in-out .3s;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 100vw;
+}
+
+.counter {
+  justify-content: flex-end;
+  margin-top: 14vh;
+}
+
+.teacher-list {
+  flex-direction: column;
+  align-items: center;
+  margin-top: 32px;
+}
+
+.card {
+  display: flex;
+  max-width: 300px;
+  background: #fff;
+  color: #000;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  padding: 16px;
+  margin: 8px;
+  border-radius: 5px;
+  width: 80vw;
+}
+
+.max, .grades {
+  flex-direction: column;
+  box-shadow: 10px 10px 22px 4px rgba(0,0,0,0.24);;
+  min-height: 250px;
+}
+
+.grades {
+  align-items: center;
+}
+
+#grades-icon {
+  width: 50%;
+  height: 50%;
+}
+
+#schedule {
+  overflow-x: hidden;
+}
+
+.title {
+  font-size: 2em;
+}
+
+.teacher-title {
+  color: #24B47E;
+}
+
+#search-area {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 30vw;
+  min-width: 450px;
+  height: 2vh;
+  border-radius: 30px;
+  padding: 16px;
+  font-size: 1em;
+  border: none;
+  margin: 8px;
+  background: #FFF;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+#search-icon {
+  width: 2vh;
+  height: 2vh;
+  min-width: 15px;
+  min-height: 15px;
+  flex-grow: 0;
+}
+
+#search {
+  min-width: 25vw;
+  flex-grow: 5;
+  height: 2vh;
+  padding: 16px;
+  font-size: 1em;
+  border: none;
+  margin: 8px;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+.class {
+  display: table-row;
+  background: #fff;
+  color: #000;
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+th, td {
+  padding: 10px;
+}
+
+.star {
+  display: block;
+  margin-left: 8px;
+  width: 3vh;
+  height: 3vh;
+  min-width: 15px;
+  min-height: 15px;
+}
+
+span {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#class-list, #pinned {
+  background-color: white;
+  border-collapse: collapse;
+  border-radius: 15px;
+  overflow: hidden;
+  padding: 10px;
+  width: 75%;
+  margin-top: 16px;
+  margin-bottom: 32px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.class-name {
+  flex-grow: 5;
+}
+
+.teacher-name {
+  flex-grow: 2;
+}
+
+/* MOBILE RULES */
+@media screen and (max-width: 610px) {
+  .list {
+    display: none;
+  }
+
+  .counter {
+    justify-content: center;
+  }
+
+  #search-area {
+    min-width: 80vw;
+  }
+
+  #class-list, #pinned {
+    min-width: 90vw;
+  }
+}

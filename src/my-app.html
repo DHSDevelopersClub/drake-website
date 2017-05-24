@@ -16,10 +16,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="my-icons.html">
 
-<link rel="lazy-import" href="my-view1.html">
-<link rel="lazy-import" href="my-view2.html">
-<link rel="lazy-import" href="my-view3.html">
-<link rel="lazy-import" href="my-view404.html">
+<link rel="lazy-import" href="drake-home.html">
+<link rel="lazy-import" href="drake-about.html">
+<link rel="lazy-import" href="drake-contact.html">
+<link rel="lazy-import" href="drake-404.html">
 
 <dom-module id="my-app">
   <template>
@@ -185,9 +185,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="navbar area">
         <span class="brand">Drake</span>
         <iron-selector selected="[[page]]" attr-for-selected="name" id="navigation" class="list" role="navigation">
-          <a name="view1" class="item" href="view1">Home</a>
-          <a name="view2" class="item" href="view2">About</a>
-          <a name="view3" class="item" href="view3">Contact</a>
+          <a name="home" class="item" href="home">Home</a>
+          <a name="view2" class="item" href="about">About</a>
+          <a name="view3" class="item" href="contact">Contact</a>
         </iron-selector>
       </div>
     </div>
@@ -216,10 +216,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           attr-for-selected="name"
           fallback-selection="view404"
           role="main">
-        <my-view1 name="view1"></my-view1>
-        <my-view2 name="view2"></my-view2>
-        <my-view3 name="view3"></my-view3>
-        <my-view404 name="view404"></my-view404>
+        <drake-home name="home"></drake-home>
+        <drake-about name="about"></drake-about>
+        <drake-contact name="contact"></drake-contact>
+        <drake-404 name="404"></drake-404>
       </iron-pages>
     </div>
 
@@ -264,14 +264,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           return;
         }
 
+        if (page == 'home' || page == '') {
+          this.expandHeader();
+        } else {
+          this.shrinkHeader();
+        }
+
         // If no page was found in the route data, page will be an empty string.
         // Deault to 'view1' in that case.
-        this.page = page || 'view1';
+        this.page = page || 'home';
+        
+      }
+
+      shrinkHeader() {
+        this.$.gradient.style.transition = 'all ease-in-out .25s';
+        this.$.gradient.style.top = '-200px';
+        this.$.gradient.style.transform = 'skewY(4deg)';
+        this.$.gradient.style.background = 'linear-gradient(-8deg, #00E676 0%, #1DE9B6 32%)';
+      }
+
+      expandHeader() {  
+        this.$.gradient.style.transition = 'all ease-in-out .5s';
+        this.$.gradient.style.top = '0';
+        this.$.gradient.style.transform = 'skewY(8deg)';
+        this.$.gradient.style.background = 'linear-gradient(-8deg, #00E676 0%, #1DE9B6 65%)';
       }
 
       _pageChanged(page) {
         // Load page import on demand. Show 404 page if fails
-        var resolvedPageUrl = this.resolveUrl('my-' + page + '.html');
+        var resolvedPageUrl = this.resolveUrl('drake-' + page + '.html');
         Polymer.importHref(
             resolvedPageUrl,
             null,

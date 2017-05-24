@@ -12,7 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="shared-styles.html">
 
-<dom-module id="my-view1">
+<dom-module id="drake-home">
   <template>
     <style include="shared-styles">
       :host {
@@ -158,7 +158,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <table id="class-list">
       <template is="dom-repeat" id="messages" items="[[pages]]" initial-count="10" scroll-target="document">
         <tr class="class">
-          <span><img src="../res/star-empty.svg" alt="Star" class="star"></span>
+          <td><img src="../res/star-empty.svg" alt="Star" class="star"></td>
           <td class="class-name">[[item.class]]</td>
           <td class="teacher-name">[[item.name]]</td>
         </tr>
@@ -169,8 +169,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 
   <script>
-    class MyView1 extends Polymer.Element {
-      static get is() { return 'my-view1'; }
+    class DrakeHome extends Polymer.Element {
+      static get is() { return 'drake-home'; }
 
       static get properties() {
         return {
@@ -185,6 +185,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         super();
       }
     }
-    window.customElements.define(MyView1.is, MyView1);
+    window.customElements.define(DrakeHome.is, DrakeHome);
   </script>
 </dom-module>

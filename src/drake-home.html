@@ -11,6 +11,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="drake-home">
@@ -22,6 +24,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         align-items: center;
         padding: 10px;
       }
+
+      button {
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      }
+
+      button:focus {outline:0;}
 
       .title {
         font-size: 2em;
@@ -47,12 +55,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
       }
 
-      #search-icon {
-        width: 2vh;
-        height: 2vh;
-        min-width: 15px;
-        min-height: 15px;
-        flex-grow: 0;
+      iron-icon {
+        color: grey;
       }
 
       #search {
@@ -78,12 +82,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       th, td {
-        padding: 10px;
+        padding: 8px;
       }
 
       .star {
         display: block;
-        margin-left: 8px;
         width: 3vh;
         height: 3vh;
         min-width: 15px;
@@ -120,6 +123,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin: 16px 0;
+      }
+
+      .counter {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100vw;
+        justify-content: flex-end;
       }
 
       /* MOBILE RULES */
@@ -132,11 +144,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           justify-content: center;
         }
 
-        #search-area {
+        #search-area, .card {
           min-width: 80vw;
         }
 
-        #class-list, #pinned {
+        #class-list {
           min-width: 90vw;
         }
       }
@@ -150,12 +162,62 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       a:hover {
         color: grey;
       }
+
+      .max, .grades {
+        flex-direction: column;
+        box-shadow: 10px 10px 22px 4px rgba(0,0,0,0.24);;
+        min-height: 250px;
+        width: 280px;
+      }
+
+      .grades {
+        align-items: center;
+      }
+
+      #grades-icon {
+        width: 2vh;
+        height: 2vh;
+      }
+      
+      #grades-button {
+        background: var(--app-primary-color);
+        border: none;
+        border-radius: 3px;
+        width: 50px;
+        height: 25px;
+      }
+
+      #schedule {
+        overflow-x: hidden;
+      }
+
+      .title {
+        font-size: 2em;
+      }
+
+      #frame {
+        width: 100%;
+        height: 100%
+    }
     </style>
+
+    <div class="row counter">
+      <div class="card grades">
+        <span class="title">Home Access Center</span>
+        <iron-icon icon="icons:account-circle"></iron-icon>
+        <button id="grades-button"><iron-icon icon="icons:check"></iron-icon></button>
+      </div>
+      <div class="card max">
+        <span class="title">Schedule</span>
+        <!--<iframe id="frame" src="http://maxstarr.xyz" frameborder="0"></iframe>-->
+        <span>you are in...</span>
+      </div>
+    </div>
 
     <div class="row teacher-list">
     <span class="title teacher-title">Teacher Webpages</span>
     <div id="search-area">
-      <img src="/res/search.svg" alt=">" id="search-icon">
+      <iron-icon id="search-icon" icon="icons:search"></iron-icon>
       <input id="search" is="iron-input" placeholder="Search" bind-value="{{searchVal}}">
     </div>
 
@@ -172,7 +234,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         persisted-data="{{pages}}">
       </app-indexeddb-mirror>-->
 
-      <h4>Pinned:</h4>
+      <!--<h4>Pinned:</h4>
       <table id="class-list">
       <template is="dom-repeat" id="messages" items="[[pinned]]" initial-count="10" scroll-target="document">
         <tr class="class">
@@ -181,7 +243,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <td class="class-name"><a href="[[item.url]]" target="_blank">[[item.name]]</a></td>
         </tr>
       </template>
-      </table>
+      </table>-->
 
       <table id="class-list">
       <template is="dom-repeat" id="messages" items="[[pages]]" initial-count="10" scroll-target="document">
@@ -214,10 +276,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             type: String
           }
         };
-      }
-
-      constructor() {
-        super();
       }
 
       pinItem(evt) {

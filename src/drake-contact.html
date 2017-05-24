@@ -16,16 +16,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style include="shared-styles">
       :host {
         display: block;
-
         padding: 10px;
+        animation: fadein .3s;
+        margin: 64px 32px 0 32px;
+      }
+
+      @keyframes fadein {
+        from {opacity: 0;}
+        to {opacity: 1;}
+      }
+
+      .title {
+        margin-left: 10px;
+        font-size: 3em;
       }
     </style>
 
+    <h1 class="title">Contact</h1>
     <div class="card">
-      <div class="circle">3</div>
-      <h1>View Contact</h1>
-      <p>Modus commodo minimum eum te, vero utinam assueverit per eu.</p>
-      <p>Ea duis bonorum nec, falli paulo aliquid ei eum.Has at minim mucius aliquam, est id tempor laoreet.Pro saepe pertinax ei, ad pri animal labores suscipiantur.</p>
+      <h1>Address</h1>
+      <p>1234 Sir Francis Drake Blvd.</p>
+      <h1>Phone</h1>
+      <p>(415) go fuk yourself</p>
+      <h1>Fax</h1>
+      <p>(415) 666 6666</p>
     </div>
   </template>
 

@@ -15,8 +15,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 
-<link rel="import" href="my-icons.html">
-
 <link rel="lazy-import" href="drake-home.html">
 <link rel="lazy-import" href="drake-about.html">
 <link rel="lazy-import" href="drake-contact.html">
@@ -36,6 +34,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         background: #F6FBFF;
         min-height: 100vh;
       }
+
       a {
         text-decoration: none;
         transition: all linear .1s;
@@ -44,6 +43,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       a:hover {
+        color: grey;
+      }
+
+      a.iron-selected {
         color: grey;
       }
       button {
@@ -65,8 +68,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: flex;
         flex-flow: row wrap;
         align-items: center;
-        margin-left: auto;
-        margin-right: auto;
+        margin: 0 auto 12vh auto;
         height: 8vh;
       }
 
@@ -125,53 +127,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: #24B47E;
         transition: all ease-in-out .3s;
       }
-
-      .row {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        max-width: 100vw;
-      }
-
-      .counter {
-        justify-content: flex-end;
-        margin-top: 14vh;
-      }
-
-      .card {
-        display: flex;
-        max-width: 300px;
-        background: #fff;
-        color: #000;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-        padding: 16px;
-        margin: 8px;
-        border-radius: 5px;
-        width: 80vw;
-      }
-
-      .max, .grades {
-        flex-direction: column;
-        box-shadow: 10px 10px 22px 4px rgba(0,0,0,0.24);;
-        min-height: 250px;
-      }
-
-      .grades {
-        align-items: center;
-      }
-
-      #grades-icon {
-        width: 50%;
-        height: 50%;
-      }
-
-      #schedule {
-        overflow-x: hidden;
-      }
-
-      .title {
-        font-size: 2em;
-      }
     </style>
 
     <app-location route="{{route}}"></app-location>
@@ -185,8 +140,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <span class="brand">Drake</span>
         <iron-selector selected="[[page]]" attr-for-selected="name" id="navigation" class="list" role="navigation">
           <a name="home" class="item" href="home">Home</a>
-          <a name="view2" class="item" href="about">About</a>
-          <a name="view3" class="item" href="contact">Contact</a>
+          <a name="about" class="item" href="about">About</a>
+          <a name="contact" class="item" href="contact">Contact</a>
         </iron-selector>
       </div>
     </div>
@@ -194,21 +149,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div id="gradient"></div>
 
     <div id="content">
-
-      <div class="row counter">
-        <div class="card grades">
-          <span class="title">Home Access Center</span>
-          <img src="/res/grades-icon.svg" alt="Grades" id="grades-icon">
-          <button id="grades-button">Enter</button>
-        </div>
-        <div class="card max">
-          <span class="title">Schedule</span>
-          <span>You are in</span>
-          <span>5th period</span>
-          <span>next is</span>
-          <span>English</span>
-        </div>
-      </div>
 
       <iron-pages
           selected="[[page]]"
@@ -276,14 +216,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       shrinkHeader() {
-        this.$.gradient.style.transition = 'all ease-in-out .25s';
+        this.$.gradient.style.transition = 'all ease-in-out .4s';
         this.$.gradient.style.top = '-200px';
         this.$.gradient.style.transform = 'skewY(4deg)';
         this.$.gradient.style.background = 'linear-gradient(-8deg, #00E676 0%, #1DE9B6 32%)';
       }
 
       expandHeader() {  
-        this.$.gradient.style.transition = 'all ease-in-out .5s';
+        this.$.gradient.style.transition = 'all ease-in-out .4s';
         this.$.gradient.style.top = '0';
         this.$.gradient.style.transform = 'skewY(8deg)';
         this.$.gradient.style.background = 'linear-gradient(-8deg, #00E676 0%, #1DE9B6 65%)';

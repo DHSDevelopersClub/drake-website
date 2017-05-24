@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="drake-home">
@@ -101,7 +102,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         overflow: hidden;
         padding: 10px;
         min-width: 30vw;
-        width: 650px;
+        max-width: 650px;
         margin-top: 16px;
         margin-bottom: 32px;
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -139,14 +140,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           min-width: 90vw;
         }
       }
+      a {
+        text-decoration: none;
+        transition: all linear .1s;
+        cursor: pointer;
+        color: black;
+      }
+
+      a:hover {
+        color: grey;
+      }
     </style>
 
     <div class="row teacher-list">
     <span class="title teacher-title">Teacher Webpages</span>
     <div id="search-area">
       <img src="/res/search.svg" alt=">" id="search-icon">
-      <input placeholder="Search" id="search" value="{{searchVal}}"></input>
-      <div>[[searchVal]]</div>
+      <input id="search" is="iron-input" placeholder="Search" bind-value="{{searchVal}}">
     </div>
 
     <iron-ajax
@@ -155,12 +165,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       handle-as="json"
       last-response="{{pages}}"></iron-ajax>
 
+      <!--<app-indexeddb-mirror
+        session="sess"
+        key="/pages"
+        data="[[_pages]]"
+        persisted-data="{{pages}}">
+      </app-indexeddb-mirror>-->
+
+      <h4>Pinned:</h4>
+      <table id="class-list">
+      <template is="dom-repeat" id="messages" items="[[pinned]]" initial-count="10" scroll-target="document">
+        <tr class="class">
+          <td><img src="../res/star-gold.svg" alt="Star" class="star"></td>
+          <td class="class-name"><a href="[[item.url]]" target="_blank">[[item.class]]</a></td>
+          <td class="class-name"><a href="[[item.url]]" target="_blank">[[item.name]]</a></td>
+        </tr>
+      </template>
+      </table>
+
       <table id="class-list">
       <template is="dom-repeat" id="messages" items="[[pages]]" initial-count="10" scroll-target="document">
         <tr class="class">
-          <td><img src="../res/star-empty.svg" alt="Star" class="star"></td>
-          <td class="class-name">[[item.class]]</td>
-          <td class="teacher-name">[[item.name]]</td>
+          <td><img src="../res/star-empty.svg" alt="Star" class="star" on-click="pinItem"></td>
+          <td class="class-name"><a href="[[item.url]]" target="_blank">[[item.class]]</a></td>
+          <td class="class-name"><a href="[[item.url]]" target="_blank">[[item.name]]</a></td>
         </tr>
       </template>
       </table>
@@ -177,12 +205,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           pages: {
             type: Array,
             value: []
+          },
+          pinned: {
+            type: Array,
+            value: []
+          },
+          searchVal: {
+            type: String
           }
         };
       }
 
       constructor() {
         super();
+      }
+
+      pinItem(evt) {
+        
       }
     }
     window.customElements.define(DrakeHome.is, DrakeHome);

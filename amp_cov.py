@@ -15,16 +15,18 @@ for element in content(text=lambda text: isinstance(text, Comment)):
 for elem in content.findAll(['script', 'style', 'xml']):
     elem.extract()
 
+for tag in content():
+    for attribute in ["style", "height", "border", "bordercolor", "clear"]:
+        del tag[attribute]
+
 with open('template.html', 'r') as g:
     template = g.read()
-    template = htmlmin.minify(unicode(template, "utf-8"), remove_empty_space=True)
+    #template = htmlmin.minify(unicode(template, "utf-8"), remove_empty_space=True)
     g.close()
     template = BeautifulSoup(template, 'html.parser')
 
 template.body.insert(0, content)
 
-print(template)
-
-html = template.prettify("utf-8")
+html = str(template) #.prettify("utf-8")
 with open("output.html", "wb") as file:
     file.write(html)

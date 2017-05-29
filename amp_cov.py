@@ -11,7 +11,7 @@ def get_img_dims(url):
     width, height = im.size
     return width, height
 
-def rewrite_url(url):
+def rewrite_img_url(url):
     parsed = urlparse.urlparse(url)
     parsed = parsed._replace(scheme='http')
     parsed = parsed._replace(netloc='tamdistrict.org')
@@ -34,22 +34,27 @@ content = input_html.find(id=re.compile('^module-content-'))
 
 for tag in content():
     # Remove disallowed attributes
-    for attribute in ["style", "height", "border", "bordercolor", "clear", "fetching"]:
+    for attribute in ["style", "height", "border", "bordercolor", "clear", "fetching", "align", "face"]:
         del tag[attribute]
 
     # Remove uneeded tags
-    if tag.name in ['script', 'style', 'xml', 'font']:
+    if tag.name in ['script', 'style', 'xml']:
         tag.extract()
 
     # Remove comments
     if tag in content(text=lambda text: isinstance(text, Comment)):
         tag.extract()
 
+    # Replace <font> with <p>
+    if tag.name == 'font':
+        tag.name = 'p'
+
     # Make images into amp-img
     if tag.name == 'img':
         tag.name = 'amp-img'
-        tag['src'] = rewrite_url(tag['src'])
+        tag['src'] = rewrite_img_url(tag['src'])
         tag['width'], tag['height'] = get_img_dims(tag['src'])
+        tag['layout'] = 'responsive'
 
 
 # Read amp page template

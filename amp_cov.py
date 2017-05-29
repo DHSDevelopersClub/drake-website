@@ -3,15 +3,20 @@ import htmlmin
 import re
 import urllib, cStringIO
 from PIL import Image
+import urlparse
 
 def get_img_dims(url):
-    file = cStringIO.StringIO(urllib.urlopen(URL).read())
+    file = cStringIO.StringIO(urllib.urlopen(url).read())
     im=Image.open(file)
     width, height = im.size
     return width, height
 
 def rewrite_url(url):
-    print url
+    parsed = urlparse.urlparse(url)
+    parsed = parsed._replace(scheme='http')
+    parsed = parsed._replace(netloc='tamdistrict.org')
+    final = urlparse.urlunparse(parsed)
+    return final
 
 def read_html(path, minify=False):
     with open(path, 'r') as f:
@@ -39,6 +44,13 @@ for tag in content():
     # Remove comments
     if tag in content(text=lambda text: isinstance(text, Comment)):
         tag.extract()
+
+    # Make images into amp-img
+    if tag.name == 'img':
+        tag.name = 'amp-img'
+        tag['src'] = rewrite_url(tag['src'])
+        tag['width'], tag['height'] = get_img_dims(tag['src'])
+
 
 # Read amp page template
 template = read_html('template.html')

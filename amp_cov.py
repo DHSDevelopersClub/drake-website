@@ -11,7 +11,7 @@ def get_img_dims(url):
     return width, height
 
 def rewrite_url(url):
-    pass
+    print url
 
 def read_html(path, minify=False):
     with open(path, 'r') as f:
@@ -27,18 +27,18 @@ input_html = read_html('test.html', minify=True)
 # select important page content
 content = input_html.find(id=re.compile('^module-content-'))
 
-# Remove comments
-for element in content(text=lambda text: isinstance(text, Comment)):
-    element.extract()
-
-# Remove unneeded tags
-for elem in content.findAll(['script', 'style', 'xml', 'font']):
-    elem.extract()
-
-# Remove disallowed attributes
 for tag in content():
+    # Remove disallowed attributes
     for attribute in ["style", "height", "border", "bordercolor", "clear", "fetching"]:
         del tag[attribute]
+
+    # Remove uneeded tags
+    if tag.name in ['script', 'style', 'xml', 'font']:
+        tag.extract()
+
+    # Remove comments
+    if tag in content(text=lambda text: isinstance(text, Comment)):
+        tag.extract()
 
 # Read amp page template
 template = read_html('template.html')

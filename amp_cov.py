@@ -1,11 +1,12 @@
 from bs4 import BeautifulSoup, Comment
 import htmlmin
 import re
-import urllib, cStringIO
-from PIL import Image
 import urlparse
+import time
 
 def get_img_dims(url):
+    import urllib, cStringIO
+    from PIL import Image
     file = cStringIO.StringIO(urllib.urlopen(url).read())
     im=Image.open(file)
     width, height = im.size
@@ -16,23 +17,27 @@ def rewrite_img_url(url):
     parsed = parsed._replace(scheme='http')
     parsed = parsed._replace(netloc='tamdistrict.org')
     final = urlparse.urlunparse(parsed)
+    print final
     return final
 
 def read_html(path, minify=False):
     with open(path, 'r') as f:
         html_doc = f.read()
         if minify:
-            html_doc = htmlmin.minify(unicode(html_doc, "utf-8"), remove_empty_space=True)
+            html_doc = htmlmin.minify(unicode(html_doc, "utf-8"), remove_empty_space=True, remove_comments=True)
         f.close()
         soup = BeautifulSoup(html_doc, 'html.parser')
         return soup
 
 # read input file
-input_html = read_html('test.html', minify=True)
+input_html = read_html('test2.html', minify=True)
 # select important page content
 content = input_html.find(id=re.compile('^module-content-'))
 
-for tag in content():
+start = time.time()
+tags_count = 0
+
+for tag in content.findAll(True):
     # Remove disallowed attributes
     for attribute in ["style", "height", "border", "bordercolor", "clear", "fetching", "align", "face"]:
         del tag[attribute]
@@ -41,13 +46,9 @@ for tag in content():
     if tag.name in ['script', 'style', 'xml']:
         tag.extract()
 
-    # Remove comments
-    if tag in content(text=lambda text: isinstance(text, Comment)):
-        tag.extract()
-
-    # Replace <font> with <p>
+    # Replace <font> with <span>
     if tag.name == 'font':
-        tag.name = 'p'
+        tag.name = 'span'
 
     # Make images into amp-img
     if tag.name == 'img':
@@ -56,6 +57,12 @@ for tag in content():
         tag['width'], tag['height'] = get_img_dims(tag['src'])
         tag['layout'] = 'responsive'
 
+    tags_count +=1
+
+
+end = time.time()
+print "Ran in " + str(end - start) + " seconds"
+print str(tags_count) + " DOM nodes"
 
 # Read amp page template
 template = read_html('template.html')

@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup, Comment
 import htmlmin
+import re
 
 with open('test.html', 'r') as f:
     html_doc = f.read()
@@ -7,12 +8,12 @@ with open('test.html', 'r') as f:
     f.close()
 
 soup = BeautifulSoup(html_doc, 'html.parser')
-content = soup.find(id="module-content-9604")
+content = soup.find(id=re.compile('^module-content-'))
 
 for element in content(text=lambda text: isinstance(text, Comment)):
     element.extract()
 
-for elem in content.findAll(['script', 'style', 'xml']):
+for elem in content.findAll(['script', 'style', 'xml', 'fetching', 'font']):
     elem.extract()
 
 for tag in content():

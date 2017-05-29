@@ -19,6 +19,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="lazy-import" href="drake-about.html">
 <link rel="lazy-import" href="drake-contact.html">
 <link rel="lazy-import" href="drake-404.html">
+<link rel="lazy-import" href="amp-viewer.html">
 
 <dom-module id="my-app">
   <template>
@@ -145,7 +146,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </iron-selector>
       </div>
     </div>
-      
+
     <div id="gradient"></div>
 
     <div id="content">
@@ -159,6 +160,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <drake-about name="about"></drake-about>
         <drake-contact name="contact"></drake-contact>
         <drake-404 name="404"></drake-404>
+        <amp-viewer name=amp></amp-viewer>
       </iron-pages>
     </div>
 
@@ -212,7 +214,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // If no page was found in the route data, page will be an empty string.
         // Deault to 'view1' in that case.
         this.page = page || 'home';
-        
+
       }
 
       shrinkHeader() {
@@ -222,7 +224,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.gradient.style.background = 'linear-gradient(-8deg, #00E676 0%, #1DE9B6 32%)';
       }
 
-      expandHeader() {  
+      expandHeader() {
         this.$.gradient.style.transition = 'all ease-in-out .4s';
         this.$.gradient.style.top = '0';
         this.$.gradient.style.transform = 'skewY(8deg)';

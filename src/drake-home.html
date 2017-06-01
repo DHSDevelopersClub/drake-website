@@ -13,6 +13,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="drake-home">
@@ -24,12 +25,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         align-items: center;
         padding: 10px;
       }
-
-      button {
-        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-      }
-
-      button:focus {outline:0;}
 
       .title {
         font-size: 2em;
@@ -43,8 +38,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: flex;
         flex-direction: row;
         align-items: center;
-        width: 30vw;
-        min-width: 450px;
+        width: 90vw;
+        max-width: 680px;
         height: 2vh;
         border-radius: 30px;
         padding: 16px;
@@ -55,12 +50,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
       }
 
-      iron-icon {
-        color: grey;
-      }
-
       #search {
-        min-width: 25vw;
         flex-grow: 5;
         height: 2vh;
         padding: 16px;
@@ -104,8 +94,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         border-radius: 15px;
         overflow: hidden;
         padding: 10px;
-        min-width: 30vw;
-        max-width: 650px;
+        width: 90vw;
+        max-width: 700px;
         margin-top: 16px;
         margin-bottom: 32px;
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -143,48 +133,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         .counter {
           justify-content: center;
         }
-
-        #search-area, .card {
-          min-width: 80vw;
-        }
-
-        #class-list {
-          min-width: 90vw;
-        }
-      }
-      a {
-        text-decoration: none;
-        transition: all linear .1s;
-        cursor: pointer;
-        color: black;
-      }
-
-      a:hover {
-        color: grey;
       }
 
       .max, .grades {
         flex-direction: column;
-        box-shadow: 10px 10px 22px 4px rgba(0,0,0,0.24);;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
         min-height: 250px;
-        width: 280px;
-      }
-
-      .grades {
-        align-items: center;
-      }
-
-      #grades-icon {
-        width: 2vh;
-        height: 2vh;
+        width: 90vw;
+        max-width: 300px;
       }
       
       #grades-button {
-        background: var(--app-primary-color);
-        border: none;
-        border-radius: 3px;
-        width: 50px;
-        height: 25px;
+        background: #1DE9B6;
+        flex-grow: 10;
       }
 
       #schedule {
@@ -193,6 +154,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .title {
         font-size: 2em;
+        flex-grow: 2;
       }
 
       #frame {
@@ -203,10 +165,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="row counter">
       <div class="card grades">
-        <span class="title">Home Access Center</span>
-        <iron-icon icon="icons:account-circle"></iron-icon>
-        <button id="grades-button"><iron-icon icon="icons:check"></iron-icon></button>
+        <span class="title">HAC Grades</span>
+        <paper-button id="grades-button" on-tap="_enterHAC">
+          <h2>Enter</h2>
+        </paper-button>
       </div>
+
       <div class="card max">
         <span class="title">Schedule</span>
         <!--<iframe id="frame" src="http://maxstarr.xyz" frameborder="0"></iframe>-->
@@ -226,24 +190,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       url="../res/teacher-pages.json"
       handle-as="json"
       last-response="{{pages}}"></iron-ajax>
-
-      <!--<app-indexeddb-mirror
-        session="sess"
-        key="/pages"
-        data="[[_pages]]"
-        persisted-data="{{pages}}">
-      </app-indexeddb-mirror>-->
-
-      <!--<h4>Pinned:</h4>
-      <table id="class-list">
-      <template is="dom-repeat" id="messages" items="[[pinned]]" initial-count="10" scroll-target="document">
-        <tr class="class">
-          <td><img src="../res/star-gold.svg" alt="Star" class="star"></td>
-          <td class="class-name"><a href="[[item.url]]" target="_blank">[[item.class]]</a></td>
-          <td class="class-name"><a href="[[item.url]]" target="_blank">[[item.name]]</a></td>
-        </tr>
-      </template>
-      </table>-->
 
       <table id="class-list">
       <template is="dom-repeat" id="messages" items="[[pages]]" initial-count="10" scroll-target="document">
@@ -280,6 +226,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       pinItem(evt) {
         
+      }
+
+      _enterHAC() {
+        window.open('https://home.tamdistrict.org/HomeAccess/Account/LogOn?ReturnUrl=%2fhomeaccess%2f', '_blank');
       }
     }
     window.customElements.define(DrakeHome.is, DrakeHome);

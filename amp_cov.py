@@ -24,6 +24,7 @@ def read_html(path, minify=False):
     with open(path, 'r') as f:
         html_doc = f.read()
         if minify:
+            print minify
             html_doc = htmlmin.minify(unicode(html_doc, "utf-8"), remove_empty_space=True, remove_comments=True)
         f.close()
         soup = BeautifulSoup(html_doc, 'html.parser')
@@ -36,6 +37,8 @@ content = input_html.find(id=re.compile('^module-content-'))
 
 start = time.time()
 tags_count = 0
+tags_list = []
+formatted_content = BeautifulSoup('', 'html.parser')
 
 for tag in content.findAll(True):
     # Remove disallowed attributes
@@ -57,18 +60,26 @@ for tag in content.findAll(True):
         tag['width'], tag['height'] = get_img_dims(tag['src'])
         tag['layout'] = 'responsive'
 
+    if tag.name == 'u':
+        print tag
+
     tags_count +=1
+    if tag.name not in tags_list:
+        tags_list.append(tag.name)
+
+    formatted_content.append(tag)
 
 
 end = time.time()
 print "Ran in " + str(end - start) + " seconds"
 print str(tags_count) + " DOM nodes"
+print tags_list
 
 # Read amp page template
 template = read_html('template.html')
 
 # Insert body into template
-template.body.insert(0, content)
+template.body.insert(0, formatted_content)
 
 
 # Output to html file
